@@ -17,7 +17,12 @@ channel_id = ARGV[0]
 # 登録者数取得
 channel = Yt::Channel.new(id: channel_id)
 num_after = channel.subscriber_count
-channel_name = channel.title
+
+# 数値がおかしいときは終了
+if num_after == 0
+  puts "ERRRO: 登録者数がゼロになっています。ツイートせず終了します。"
+  exit 1
+end
 
 # 前回との差分を取得
 list_file = "/var/tmp/number_" + channel_id + ".txt"
@@ -30,7 +35,8 @@ end
 num_diff = num_after - num_before
 
 # 文言組み立て
-item = "YouTubeチャンネル " + channel_name + " の登録者数: " + num_after.to_s + " (" + Time.now.strftime("%m/%d %H:%M").to_s + "現在 / 差分" + num_diff.to_s + ")"
+channel_name = channel.title
+item = "YouTubeチャンネル " + channel_name + " の登録者数: " + num_after.to_s + " (" + Time.now.strftime("%m/%d %H:%M").to_s + "現在、前回チェック時との差分" + num_diff.to_s + ")"
 
 #Tweetする
 if num_diff == 0
