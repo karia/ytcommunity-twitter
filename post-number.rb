@@ -20,7 +20,7 @@ num_after = channel.subscriber_count
 
 # 数値がおかしいときは終了
 if num_after == 0
-  puts "ERRRO: 登録者数がゼロになっています。ツイートせず終了します。"
+  puts "ERROR: 登録者数がゼロになっています。ツイートせず終了します。"
   exit 1
 end
 
