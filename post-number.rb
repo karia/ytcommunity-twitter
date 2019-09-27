@@ -34,14 +34,12 @@ end
 
 num_diff = num_after - num_before
 
-# 文言組み立て
-channel_name = channel.title
-item = "YouTubeチャンネル " + channel_name + " の登録者数: " + num_after.to_s + " (" + Time.now.strftime("%m/%d %H:%M").to_s + "現在、前回チェック時との差分" + num_diff.to_s + ")"
-
 #Tweetする
 if num_diff == 0
-  puts item
+  puts Time.now.strftime("%m/%d %H:%M").to_s + "現在、差分なし: " + num_after.to_s
 else
+  channel_name = channel.title
+  item = "YouTubeチャンネル " + channel_name + " の登録者数: " + num_after.to_s + " (" + Time.now.strftime("%m/%d %H:%M").to_s + "現在、前回チェック時との差分" + num_diff.to_s + ")"
   client.update(item)
   puts "[ツイートしました]" + item
 end
