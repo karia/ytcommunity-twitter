@@ -35,17 +35,17 @@ end
 num_diff = num_after - num_before
 
 #Tweetする
-if num_diff == 0
-  puts Time.now.strftime("%m/%d %H:%M").to_s + "現在、差分なし: " + num_after.to_s
+if num_diff <= 0
+  puts Time.now.strftime("%m/%d %H:%M").to_s + "現在: " + num_after.to_s
 else
   channel_name = channel.title
-  item = "YouTubeチャンネル " + channel_name + " の登録者数: " + num_after.to_s + " (" + Time.now.strftime("%m/%d %H:%M").to_s + "現在、前回チェック時との差分" + num_diff.to_s + ")"
+  item = "YouTubeチャンネル " + channel_name + " の登録者数が " + num_after.to_s + " になりました (" + Time.now.strftime("%m/%d %H:%M").to_s + "現在)"
   client.update(item)
   puts "[ツイートしました]" + item
-end
 
-# 数字を保存
-File.open(list_file, "w") do |f| 
-  f.puts(num_after)
+  # 数字を保存
+  File.open(list_file, "w") do |f| 
+   f.puts(num_after)
+  end
 end
 
